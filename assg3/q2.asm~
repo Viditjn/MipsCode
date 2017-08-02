@@ -1,0 +1,57 @@
+.text
+
+.globl main
+
+main:
+		li $v0,5
+		syscall
+		move $t0,$v0
+		li $v0,5
+		syscall 
+		move $t1,$v0
+		li $t3,1
+	    jal power
+exit:
+		li $v0,1
+		move $a0,$t2
+		syscall
+		li $v0,10
+		syscall	
+
+power:
+		addi $sp,$sp,-4
+		sw $ra,($sp)
+		bne $t1,$zero,not0
+		li $t2,1
+		lw $ra,($sp)
+		addi $sp,$sp,4
+		jr $ra
+
+not0:
+		bne $t1,$t3,not1
+		move $t2,$t0
+		lw $ra,($sp)
+		addi $sp,$sp,4
+		jr $ra
+
+not1:
+		and $t4,$t1,$t3
+		beq $t4,$zero,even
+		addi $t1,$t1,-1
+		srl $t1,$t1,1
+		jal power
+		mul $t2,$t2,$t2
+		mul $t2,$t2,$t0
+		lw $ra,($sp)
+		addi $sp,$sp,4
+		jr $ra
+
+even:
+		srl $t1,$t1,1
+		jal power
+		mul $t2,$t2,$t2
+		lw $ra,($sp)
+		addi $sp,$sp,4
+		jr $ra
+		
+

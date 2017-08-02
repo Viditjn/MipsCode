@@ -1,0 +1,2 @@
+While calculating power of any number using iterative method it takes more time as comared to the recursive method.
+As complexity of iterative one is O(n) whereas complexity of recursive one is O(log n).
